@@ -21,13 +21,15 @@ const UserSchema = new mongoose.Schema({
     required: 'Please provide your email address', // enforces response to this field
     trim: true, // removes any whitespace from beginning and end of text input
     validate: { validator: validator.isEmail, message: 'You must enter a valid email address' },
-    unique: true, // ensures email address does not already appear in the database.
+    unique: 'Email already exists in database', // ensures email address does not already appear in the database.
   },
   password: {
     type: String,
     required: 'A password is required',
   },
 });
+
+// unique: true, // ensures email address does not already appear in the database.
 
 
 // Method to Authenticate User

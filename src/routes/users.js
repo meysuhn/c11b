@@ -20,24 +20,27 @@ router.post('/', (req, res, next) => {
     if (user) { // if there's an email match then error. No duplicates allowed.
       err = new Error();
       err.message = 'Email already exists in database';
-      err.status = 400;
-      console.log(user); // this part is OK. User exists.
+      err.status = 400; // this status gets through.
       next(err);
     } else {
     User.create(req.body, (err, user) => {
       console.log("hi"); //this part is OK.
-      // Problem here is user isn't getting through. Not sure why.
-      if (!user.emailAddress || !user.firstName || !user.lastName || !user.password) { // if any fields missing then reject.
-        err = new Error();
-        err.message = 'Email already exists in database';
-        err.status = 400;
-        return next(err);
-      }
-      if (err) { // Any others errors pathway
-        console.log("fired");
-        return next(err);
-      }
-      return res.status(201).location('/').json();
+      if (user) {// If a user has been created
+        if (!user.emailAddress || !user.firstName || !user.lastName || !user.password) {
+          // if any fields missing then reject.
+          err = new Error();
+          err.status = 400; // this error status does not get added.
+          return next(err);
+        }
+        if (err) { // Any others errors pathway
+          console.log("fired");
+          return next(err);
+        }
+        return res.status(201).location('/').json();
+    } else {
+      console.log("whatev");
+      return next(err);
+    };
     });
   }
   }); // Don't put return next() to satisfy 'consistent-return' rule. It will break route.
