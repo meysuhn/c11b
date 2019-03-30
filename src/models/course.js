@@ -13,7 +13,6 @@ const CourseSchema = new mongoose.Schema({
     trim: true,
     minlength: 1,
     unique: 'Course title already exists. Please choose a unique title.', // ensures email address does not already appear in the database.
-
   },
   description: {
     type: String,

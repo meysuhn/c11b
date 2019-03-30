@@ -72,14 +72,17 @@ router.put('/:courseId', mid.requiresLogin, (req, res, next) => {
 
 
 // Delete Course
-router.delete('/:courseId', mid.requiresLogin, (req, res, next) => {
-  Course.findByIdAndRemove(req.params.courseId, (err) => {
-    if (err) {
-      err.status = 400;
-      return next(err);
-    }
-  return res.status(202).json();
-  });
+router.delete('/:courseId', (req, res, next) => {
+  console.log(req.params.courseId); // this is the course id
+  console.log(req.AuthorisedUser);
+  // how to the get the current logged in users id?
+  // Course.findByIdAndRemove(req.params.courseId, (err) => {
+  //   if (err) {
+  //     err.status = 400;
+  //     return next(err);
+  //   }
+  // return res.status(202).json();
+  // });
 });
 
 

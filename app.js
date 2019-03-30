@@ -83,7 +83,8 @@ DATABASE CONNECTION
 // Connect to Mongo db with Mongoose
   // ('connect to mongodb on localhost 27017, the default port for mongodb')
   // fsjstd-restapi is the name of the mongo data store, the name of the databse for the c11b site.
-mongoose.connect('mongodb://localhost:27017/fsjstd-restapi', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/fsjstd-restapi', { useNewUrlParser: true, autoIndex: false });
+
 
 const db = mongoose.connection; // represents the connection to mongodb
 
